@@ -1,0 +1,25 @@
+step1 git init 
+step2 python -m venv venv 
+step3 source ./venv/Scripts/activate
+step4 新增 .gitignore
+step5 新增 .flaskenv 且修改裡面內容
+step6 pip install python-dotenv
+step7 pip install flask
+step8 新增構造文件 __init__.py
+step9 新增 models.py
+step10 新增 forms.py
+step11 新增 settings.py
+step12 新增資料夾 blueprints (放視圖函數，把 view.py 檔升級為包)
+step13 新增 blueprints 包底下的構造文件 __init__.py 檔
+step14 新增 blueprints 包底下的 blog.py(放部落格前台)、admin.py(放部落格後台)、auth.py(放部落格認證) 的視圖函數腳本
+step15 編輯 blog.py、admin.py、auth.py 檔
+step16 編輯 PersonalBlog 的構造文件 __init__.py 檔
+step17 pip install bootstrap-flask
+step18 pip install flask-sqlalchemy
+step19 pip install flask-ckeditor and pip install flask-wtf
+step20 pip install flask-mail
+step21 pip install flask-moment
+step22 編輯 settings.py 檔
+step23 編輯 __init__.py 構造文件
+step24 新增 templates 和 static 資料夾
+step25 新增 400.html、404.html、500.html
