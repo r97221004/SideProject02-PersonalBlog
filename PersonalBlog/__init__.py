@@ -1,4 +1,4 @@
-
+import os
 import click
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
@@ -11,9 +11,11 @@ from flask_ckeditor import CKEditor # 要有 flask-wtf 的套件
 from PersonalBlog.blueprints.blog import blog_bp
 from PersonalBlog.blueprints.admin import admin_bp
 from PersonalBlog.blueprints.auth import auth_bp
+from PersonalBlog.settings import config
 
 app = Flask('PersonalBlog')
-app.config.from_pyfile('settings.py') # 要加 .py
+config_name = os.getenv('FLASK_CONFIG', 'development')
+app.config.from_object(config[config_name])
 
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)

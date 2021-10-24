@@ -23,3 +23,5 @@ step22 編輯 settings.py 檔
 step23 編輯 __init__.py 構造文件
 step24 新增 templates 和 static 資料夾
 step25 新增 400.html、404.html、500.html
+step26 編輯 settings.py 檔
+step27 編輯 __init__.py
