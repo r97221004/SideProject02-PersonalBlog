@@ -6,6 +6,7 @@ from PersonalBlog.blueprints.blog import blog_bp
 from PersonalBlog.blueprints.admin import admin_bp
 from PersonalBlog.blueprints.auth import auth_bp
 from PersonalBlog.extensions import bootstrap, db, ckeditor, mail, moment 
+from PersonalBlog.models import Admin, Category, Link, Post
 from PersonalBlog.settings import config
 
 
@@ -49,11 +50,16 @@ def register_blueprints(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db = db)
+        return dict(db = db, Admin = Admin, Post = Post, Category = Category)  # 建表要把表放置在 shell 上下文處理函數
 
 
 def register_template_context(app):
-    pass
+    @app.context_processor
+    def make_template_context():
+        admin = Admin.query.first()
+        categories = Category.query.order_by(Category.name).all()
+        links = Link.query.order_by(Link.name).all()
+        return dict(admin = admin, categories = categories, links = links)
 
 
 def register_errors(app):
@@ -81,3 +87,32 @@ def register_commands(app):
             click.echo('Drop tables.')
         db.create_all()
         click.echo('Initialized database.')
+    
+    @app.cli.command()
+    @click.option('--category', default = 10,  help = 'Quantity of categories, default is 10.')
+    @click.option('--post', default = 50, help='Quantity of posts, default is 50.')
+    @click.option('--comment', default = 500, help='Quantity of comments, default is 500.')
+    def forge(category, post, comment):
+        """Generate fake data."""
+
+        from PersonalBlog.fakes import fake_admin, fake_categories, fake_comments, fake_links, fake_posts
+
+        db.drop_all()
+        db.create_all()
+
+        click.echo('Generating the administrator...')
+        fake_admin()
+
+        click.echo(f'Generating {category} categories...')
+        fake_categories(category)
+
+        click.echo(f'Generating {post} posts...')
+        fake_posts(post)
+
+        click.echo(f'Generating {comment} comments...')
+        fake_comments(comment)
+
+        click.echo('Generating links...')
+        fake_links()
+
+        click.echo('Done.')

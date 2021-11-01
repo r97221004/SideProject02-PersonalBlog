@@ -28,3 +28,28 @@ step27 編輯 __init__.py
 step28 編輯 __init__.py, 使用工廠函數
 step29 新增與編輯 extensions.py
 step30 編輯 __init__.py
+step31 編輯 models.py
+step32 新增與編輯 fakes.py
+step33 pip install faker
+step34 新增與編輯 fakes.py 檔
+step35 編輯 __init__.py 構照文件
+step36 在 templates 內新增資料夾 blog、admin、auth
+step37 在 blog 內新增 index.html、post.html、category.html、about.html、_sidebar.html、_posts.html
+step38 新增 base.html
+step39 編輯 views.py
+step40 新增 css 與 js 資料夾
+step41 編輯 __init__.py 構造文件
+step42 新增與編輯 forms.py
+step43 編輯 blueprints
+step44 新增 login.html
+step45 新增 utils.py
+step45 pip install email-validator
+step46 新增 emails.py
+step47 編輯 emails.py
+step48 編輯 blog.py
+step49 編輯 _posts.html
+step50 編輯 index.html
+step51 編輯 blog.py
+step52 編輯 index.html
+step53 編輯 views.py
+step54 編輯 post.html

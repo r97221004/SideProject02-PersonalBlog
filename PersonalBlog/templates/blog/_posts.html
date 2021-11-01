@@ -1,0 +1,20 @@
+{% if posts %}
+    {% for post in posts %}
+    <div class="bd">
+        <h3 class="title"><a href="{{ url_for('blog.show_post', post_id=post.id) }}">{{ post.title }}</a></h3>
+        <p class="cont"> <!-- truncate過濾器，它會截取正文開頭一部分（默認為255個字符）作為文章摘要。我們附加了striptags過濾器以濾掉文章正文中的 HTML 標簽。-->
+            {{ post.body|striptags|truncate }}  
+            <a class="btn btn-sm btn-warning total" href="{{ url_for('blog.show_post', post_id=post.id) }}">閱讀全文</a>
+        </p>
+        <small class="cont">
+            評論總數: <a class="test" href="{{ url_for('blog.show_post', post_id=post.id) }}#comments">{{ post.comments|length }}</a>&nbsp;&nbsp;
+            文章分類: <a class="test" href="{{ url_for('blog.show_category', category_id=post.category.id) }}">{{ post.category.name }}</a>
+            <span class="float-right">{{ moment(post.timestamp).format('LL') }}</span>
+        </small>
+    </div>
+    {% endfor %}
+{% else %}
+   <div class="tip">
+       <h5>沒有文章可以顯示</h5>
+   </div>
+{% endif %}

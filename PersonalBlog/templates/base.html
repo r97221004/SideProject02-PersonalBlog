@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}-{{ admin.blog_title|default('Blog Title') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    {% endblock %}
+</head>
+<body>
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand matt" href="{{ url_for('blog.index') }}">Matt</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('blog.index') }}">首頁</a></li>
+                    <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('blog.about') }}">關於我</a></li>
+                    <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4" href="post.html">登入</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead" style="background-image: url('../static/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1 class="cont">{{ admin.blog_title }}</h1>
+                        <span class="subheading cont">{{admin.blog_sub_title }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+    
+<main class="container">
+    {% for message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ message[0] }}" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message[1] }} <!--flash(消息, 分類)-> message = (分類, 消息) -->
+    </div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+    
+    {% block footer %}
+    <footer class="border-top pt-1">
+        <p>
+            &copy; 2021 想連絡我或了解更多嗎 ?<br>
+            歡迎參觀我的 <a class="foot" href="https://github.com/r97221004">Github</a>｡
+        </p>
+    </footer>
+    {% endblock %}
+    </main>
+    
+    {% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+    {{ moment.locale('zh-tw') }}
+    {% endblock %}
+</body>
+</html>
