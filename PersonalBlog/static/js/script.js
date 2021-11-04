@@ -1,3 +1,12 @@
+$(function () {
+    function render_time() {
+        return moment($(this).data('timestamp')).format('lll')
+    }
+    $('[data-toggle="tooltip"]').tooltip(
+        {title: render_time}
+    );
+});
+
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');

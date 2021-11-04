@@ -53,3 +53,4 @@ step51 編輯 blog.py
 step52 編輯 index.html
 step53 編輯 views.py
 step54 編輯 post.html
+step55 編輯 blog.py

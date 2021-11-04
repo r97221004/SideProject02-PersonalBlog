@@ -1,1 +1,113 @@
-{}
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+  <h1 class="title">{{ post.title }}</h1>
+  <small>
+      {{ moment(post.timestamp).format('LL') }}&nbsp;
+      <a class="count" href="{{ url_for('blog.show_category', category_id=post.category.id)}}">{{ post.category.name }}</a>
+  </small>
+</div>
+
+<div class="row">
+  <div class="col-sm-8 cont">
+    {{ post.body|safe }} <!--富文本編輯器來撰寫文章，文章包含的各種樣式是通過 HTML 標簽實現的，為了讓 Jinja2 把這些文本當作 HTML 代碼來渲染，需要使用 safe 過濾器。-->
+    <hr>
+    <button type="button" class="btn btn-primary btn-md mb-4 mt-4 share" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        好文分享
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">連結</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{ url_for('.show_post', post_id=post.id, _external=True) }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id='comments'>
+      <h2 class="cont mb-5">目前有 {{ post.comments|length}} 則評論
+            <a class="new" href="{{ url_for('blog.show_post', post_id=post.id, page=pagination.pages or 1)}}#comments">最新評論</a>   
+      </h2>
+
+      {% if comments %}
+        <ul class="list-group">
+          {% for comment in comments %}
+            <li class="list-group-item list-group-item-action flex-column commentup">
+              <div class="d-flex w-100 justify-content-between commentname">
+                <h5 class="mb-1">
+                  <a class="author" href="{% if comment.site %}{{ comment.site }}{% else %}#{% endif %}" target="_blank">
+                    {% if comment.from_admin %}
+                      {{ admin.name }}
+                    {% else %}
+                      {{ comment.author }}
+                    {% endif %}
+                  </a>
+                  {% if comment.from_admin %}
+                    <span class="badge badge-primary auth">作者</span>
+                  {% endif %}
+                  {% if comment.replied %}
+                    <span class="badge badge-success reply">回覆</span>
+                  {% endif %}
+                </h5>
+                <span> 
+                {{ moment(comment.timestamp).format('LL') }}
+                </span>
+              </div>
+              {% if comment.replied %}
+                <p class="alert alert-dark reply-body">{{ comment.replied.author }}:
+                  <br>{{ comment.replied.body}}
+                </p>
+              {% endif %}  
+            </li>
+
+            <div class="commentdown">
+              <p class="combody">{{ comment.body }}</p>
+              <div class="float-right">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('blog.reply_comment', comment_id=comment.id) }}">回覆評論</a>
+              </div>
+            </div>
+          {% endfor %}
+        </ul>
+
+      {% else %}
+        <div class="tip">沒有任何評論｡</div>
+      {% endif %}
+    </div>
+
+    <div class="mt-5 mb-5">
+      {% if comments %}
+        {{ render_pagination(pagination, fragment='#comments')}}
+      {% endif %}
+    </div>
+
+    {% if request.args.get('reply') %}
+      <div class="alert alert-info cont resp" id='comment-form'>
+          對 <strong>{{ request.args.get('author') }}</strong> 做出回應
+          <a class="float-right" href="{{ url_for('blog.show_post', post_id=post.id) }}">取消</a>
+      </div>
+    {% endif %}
+    
+    <div>
+      {{ render_form(form, action=request.full_path, extra_classes = 'userComment' ) }}
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    {% include 'blog/_sidebar.html' %}
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}{{ category.name }}{% endblock%}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-8">
+    <h1 class="title cat">文章分類: {{ category.name }}</h1>
+    <!-- <p class="text-muted">{{ category.posts|length }} 篇文章</p> -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        {% include 'blog/_posts.html' %}
+        <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    </div>
+    <div class="col-sm-4">
+        {% include 'blog/_sidebar.html' %}
+    </div>
+</div>
+{% endblock %}

@@ -11263,14 +11263,18 @@ header.masthead .site-heading .h1 {
 }
 
 .tip { 
+  font-family: 'Microsoft YaHei';
+  font-weight: bold;
+  font-size: 40px;
+  height: 300px;
   color: black !important;
   position: relative;
-  padding: 40px;
+  padding: 100px;
   text-align: center;
   background-color: #fafbfc;
   border: 1px solid #e1e4e8;
   border-radius: 3px;
-  box-shadow: inset 0 0 10px rgba(27, 31, 35, 0.05);
+  box-shadow: inset 0 0 20px rgba(27, 31, 35, 0.05);
 }
 
 .page-footer {
@@ -11299,7 +11303,7 @@ header.masthead .site-heading .h1 {
   border-radius: .5rem;
 }
 
-.test{
+.count{
   width: 50px !important;
   height: 50px;
   padding-top: 5px;
@@ -11310,6 +11314,139 @@ header.masthead .site-heading .h1 {
   font-size: 15px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: .5rem;
+}
 
+.cat{
+  text-align: center;
+  color: white;
+  background-color: #404040;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: .5rem;
+  margin-bottom: 50px;
+  
+}
+
+.inline{
+  display: inline;
+}
+
+.num{
+  padding-top: 10px;
+  width: 55px;
+  height: 55px;
+  margin-left: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+  border-radius: 2rem;
+}
+
+.share{
+  font-family: 'Microsoft YaHei';
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 1rem;
+}
+
+.new{
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 1rem;
+}
+
+.commentname{
+  font-family: 'Microsoft YaHei';
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.commentup{
+  margin-top: 1px;
+  margin-bottom: 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -5px 10px;
+}
+
+.author{
+  font-family: 'Microsoft YaHei';
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.combody{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.commentdown{
+  margin-top: 0px;
+  margin-bottom: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+}
+
+.reply{
+  position: relative;
+  top: -2px;
+}
+
+.auth{
+  position: relative;
+  top: -4px;
+}
+
+.userComment{
+  padding: 35px;
+  border-radius: 0.5rem;
+  margin-bottom: 50px;
+  color: white;
+  background-color: #777d7ec3;
+}
+
+.userComment input[type=text]{
+  height: 35px;
+  width: 50%;
+}
+
+.userComment label{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.userComment textarea{
+  height: 100px;
+}
+
+.userComment input[type=submit]{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+  width: 100%;
+  margin-top: 30px;
+}
+
+.resp{
+  font-size: 25px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.flash{
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.navright{
+  font-size: 15px !important;
 }
 
