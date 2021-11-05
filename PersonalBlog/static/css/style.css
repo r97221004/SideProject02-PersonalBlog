@@ -11450,3 +11450,39 @@ header.masthead .site-heading .h1 {
   font-size: 15px !important;
 }
 
+.login{
+  margin-top: 55px;
+  margin-bottom: 55px;
+}
+
+.login input[type=text]{
+  height: 50px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.login input[type=password]{
+  height: 50px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.login label{
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.login .form-check-label{
+  font-size: 20px;
+}
+
+.login input[type=submit]{
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+  width: 100%;
+  margin-top: 30px;
+}

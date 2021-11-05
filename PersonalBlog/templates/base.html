@@ -23,19 +23,23 @@
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('blog.index') }}">首頁</a></li>
                     <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('blog.about') }}">關於我</a></li>
-                    <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="post.html">登入</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('auth.logout', next=request.full_path) }}">登出</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('auth.login', next=request.full_path) }}">登入</a></li>
+                    {% endif %}    
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="masthead" style="background-image: url('../static/home-bg.jpg')">
+    <header class="masthead" {% block style %} style="background-image: url('../static/index.jpg')" {% endblock %}>
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
-                        <h1 class="cont">{{ admin.blog_title }}</h1>
-                        <span class="subheading cont">{{admin.blog_sub_title }}</span>
+                        <h1 class="cont">{% block blogTitle %}{{ admin.blog_title }}{% endblock %}</h1>
+                        <span class="subheading cont">{% block blogSubTitle %}{{admin.blog_sub_title }}{% endblock %}</span>
                     </div>
                 </div>
             </div>

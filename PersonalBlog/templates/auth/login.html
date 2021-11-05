@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+
+{% block title %}登入{% endblock %}
+{% block blogTitle %}登入{% endblock %}
+{% block blogSubTitle %}好久不見, 很高興再次見到您｡{% endblock %}
+{% block style %}style="background-image: url('../static/login.jpg')"{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {{ render_form(form, extra_classes='login')}}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}

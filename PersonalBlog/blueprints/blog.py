@@ -5,14 +5,9 @@ from PersonalBlog.emails import send_new_comment_email, send_new_reply_email
 from PersonalBlog.extensions import db
 from PersonalBlog.models import Admin, Category, Post, Comment
 from PersonalBlog.forms import AdminCommentForm, CommentForm
+from flask_login import current_user
 
 blog_bp = Blueprint('blog', __name__)
-
-
-# skip it
-class current_user:
-    is_authenticated = False
-
 
 
 @blog_bp.route('/')

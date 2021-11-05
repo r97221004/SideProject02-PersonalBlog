@@ -1,12 +1,11 @@
 import os
 import click
-from click.termui import prompt
 from flask import Flask, render_template
 
 from PersonalBlog.blueprints.blog import blog_bp
 from PersonalBlog.blueprints.admin import admin_bp
 from PersonalBlog.blueprints.auth import auth_bp
-from PersonalBlog.extensions import bootstrap, db, ckeditor, mail, moment 
+from PersonalBlog.extensions import bootstrap, db, ckeditor, mail, moment, login_manager 
 from PersonalBlog.models import Admin, Category, Link, Post
 from PersonalBlog.settings import config
 
@@ -40,6 +39,7 @@ def register_extensions(app):
     ckeditor.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+    login_manager.init_app(app)
 
 
 def register_blueprints(app):
@@ -92,8 +92,8 @@ def register_commands(app):
 
     @app.cli.command()
     @click.option('--category', default = 10,  help = 'Quantity of categories, default is 10.')
-    @click.option('--post', default = 50, help='Quantity of posts, default is 50.')
-    @click.option('--comment', default = 500, help='Quantity of comments, default is 500.')
+    @click.option('--post', default = 50, help = 'Quantity of posts, default is 50.')
+    @click.option('--comment', default = 500, help = 'Quantity of comments, default is 500.')
     def forge(category, post, comment):
         """Generate fake data."""
 
@@ -129,19 +129,29 @@ def register_commands(app):
         click.echo('Initializing the database...')
         db.create_all()
 
-        admin = Admin.query_first()
-        if admin is not None:
+        admin = Admin.query.first()
+        if admin is not None: # 如果數據庫中已經有管理員記錄就更新用戶名和密碼
             click.echo('The administrator already exists, updating...')
             admin.username = username
             admin.set_password(password)
-        else:
+
+        else: # 否則創建新的管理員記錄
             click.echo('Creating the temporary administrator account...')
             admin = Admin(
                 username = username,
-                blog_title='Bluelog',
-                blog_sub_title="No, I'm the real thing.",
-                name='Admin',
-                about='Anything about you.'
+                blog_title = '用程式寫生活',
+                blog_sub_title = "紀錄是為了走更長遠的路, 與您互動是我最大的動力｡",
+                name = 'Matt',
+                about = '我是張家豪,有接近十年的教學經驗｡ 近年開始自學與進修, 人生的下半場以資料分析師跟後端工程師為目標, 您的寶貴經驗與意見會是我最大的動力, 歡迎留言給我｡'
             )
             admin.set_password(password)
             db.session.add(admin)
+
+        category = Category.query.first()
+        if category is None:
+            click.echo('Creating the default category...')
+            category = Category(name = '綜合')
+            db.session.add(category)
+        
+        db.session.commit()
+        click.echo('Done.')
