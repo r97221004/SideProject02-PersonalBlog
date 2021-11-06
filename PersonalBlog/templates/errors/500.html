@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{%block title %}500 錯誤 {% endblock %}
+{%block blogTitle %}不曉得在哪兒? {% endblock %}
+{% block blogSubTitle %}我們無法找到您的網頁, 請回首頁探尋更多資訊{% endblock %}
+{% block style %}style="background-image: url({{ url_for('static', filename='error.jpg') }})"{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-left error">
+        非常抱歉
+        <div class="wrong">
+        {{ description|default('有些地方出錯了') }}<br>
+        We're sorry, something went wrong.
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

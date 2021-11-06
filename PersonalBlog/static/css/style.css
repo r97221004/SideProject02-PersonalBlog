@@ -11486,3 +11486,13 @@ header.masthead .site-heading .h1 {
   width: 100%;
   margin-top: 30px;
 }
+
+
+.error{
+  padding: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+  box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 10px;
+  margin-bottom: 30px;
+}
