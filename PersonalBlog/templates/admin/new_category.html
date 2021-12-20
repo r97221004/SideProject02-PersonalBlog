@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}新增分類{% endblock %}
+{% block blogTitle %}新增分類{% endblock %}
+{% block blogSubTitle %}改變一下分類名稱, 改變一下今天心情｡{% endblock %}
+{% block style %}style="background-image: url({{url_for('static', filename='back.jpg') }})"{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        {{ render_form(form, extra_classes='formexp')}}
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock %}

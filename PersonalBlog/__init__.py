@@ -1,13 +1,14 @@
 import os
 import click
 from flask import Flask, render_template
+from flask_login import current_user
 from flask_wtf.csrf import CSRFError
 
 from PersonalBlog.blueprints.blog import blog_bp
 from PersonalBlog.blueprints.admin import admin_bp
 from PersonalBlog.blueprints.auth import auth_bp
 from PersonalBlog.extensions import bootstrap, db, ckeditor, mail, moment, login_manager, csrf
-from PersonalBlog.models import Admin, Category, Link, Post
+from PersonalBlog.models import Admin, Category, Comment, Link, Post
 from PersonalBlog.settings import config
 
 
@@ -62,7 +63,12 @@ def register_template_context(app):
         admin = Admin.query.first()
         categories = Category.query.order_by(Category.name).all()
         links = Link.query.order_by(Link.name).all()
-        return dict(admin = admin, categories = categories, links = links)
+        if current_user.is_authenticated:
+            unread_comments = Comment.query.filter_by(reviewed = False).count()
+        else:
+            unread_comments = None
+
+        return dict(admin = admin, categories = categories, links = links, unread_comments = unread_comments)
 
 
 def register_errors(app):

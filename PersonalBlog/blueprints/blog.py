@@ -47,7 +47,7 @@ def show_post(post_id):
         form = AdminCommentForm()
         form.author.data = current_user.name
         form.email.data = current_app.config['BLUELOG_EMAIL']
-        form.site.data = url_for('blog.index')
+        form.site.data = current_app.config['BLUELOG_SITE']
         from_admin = True
         reviewed = True
     else:

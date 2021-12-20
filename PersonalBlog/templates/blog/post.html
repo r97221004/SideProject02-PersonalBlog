@@ -100,9 +100,13 @@
       </div>
     {% endif %}
     
-    <div>
-      {{ render_form(form, action=request.full_path, extra_classes = 'userComment' ) }}
-    </div>
+    {% if post.can_comment %}
+      <div>
+        {{ render_form(form, action=request.full_path, extra_classes = 'userComment' ) }}
+      </div>
+    {% else %}
+      <div class="tip">禁止評論</div>
+    {% endif %}
   </div>
 
   <div class="col-sm-4">

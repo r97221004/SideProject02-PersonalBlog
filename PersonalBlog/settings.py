@@ -26,6 +26,7 @@ class BaseConfig(object):
     # SERVER_NAME = os.getenv('SERVER_NAME') # 待補
 
     BLUELOG_EMAIL = os.getenv('BLUELOG_EMAIL')
+    BLUELOG_SITE = os.getenv('BLUELOG_SITE')
     BLUELOG_POST_PER_PAGE = 10
     BLUELOG_MANAGE_POST_PER_PAGE = 15
     BLUELOG_COMMENT_PER_PAGE = 15

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}社交網站管理 {% endblock %}
+{% block blogTitle %}社交網站管理{% endblock %}
+{% block blogSubTitle %}社交網站管理後台，你還有加入新的社交網站嗎?{% endblock %}
+{% block style %}style="background-image: url({{url_for('static', filename='back.jpg') }})"{% endblock %}
+
+{% block content %}
+    <div class="managePost">
+        目前共 <small class="text-muted">{{ links |length }}</small> 筆社交網站連結 
+    </div>
+    {% if links %}
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>編號</th>
+            <th>社交網站</th>
+            <th>網址</th>
+            <th>採取行動</th>
+        </tr>
+        </thead>
+        {% for link in links %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ link.name }}</td>
+                <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="{{ url_for('admin.edit_link', link_id=link.id) }}">編輯</a>
+                    <form class="inline" method="post" action="{{ url_for('admin.delete_link', link_id=link.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure?');">刪除
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% else %}
+    <div class="tip"><h5>No links.</h5></div>
+{% endif %}
+
+{% endblock %}

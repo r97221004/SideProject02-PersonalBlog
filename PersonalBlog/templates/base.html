@@ -27,13 +27,36 @@
                         <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('auth.logout', next=request.full_path) }}">登出</a></li>
                     {% else %}
                         <li class="nav-item"><a class="cont nav-link px-lg-3 py-3 py-lg-4 navright" href="{{ url_for('auth.login', next=request.full_path) }}">登入</a></li>
-                    {% endif %}    
+                    {% endif %}  
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-danger btn-sm dropdown-toggle back" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            新增
+                        </a>
+                        
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.new_post') }}">文章</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.new_category') }}">分類</a></li>
+                        </ul>
+                    </li>  
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-danger btn-sm dropdown-toggle back" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            管理{% if unread_comments %}<span class="badge badge-primary ml-1">{{ unread_comments }}</span>{% endif %}
+                        </a>
+                        
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.manage_post') }}">文章</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.manage_category') }}">分類</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.manage_comment') }}">評論{% if unread_comments %}<span class="badge badge-primary ml-1">{{ unread_comments }}</span>{% endif %}</a></li>
+                        </ul>
+                    </li>  
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="masthead" {% block style %} style="background-image: url('../static/index.jpg')" {% endblock %}>
+    <header class="masthead" {% block style %} style="background-image: url({{ url_for('static', filename='index.jpg') }} )" {% endblock %}>  <!--不要寫相對路徑-->
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">

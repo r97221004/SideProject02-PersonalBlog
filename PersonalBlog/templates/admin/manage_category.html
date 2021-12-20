@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}文章分類管理 {% endblock %}
+{% block blogTitle %}文章分類管理{% endblock %}
+{% block blogSubTitle %}文章分類管理後台, 文章要好整理, 需要放在對的地方｡{% endblock %}
+{% block style %}style="background-image: url({{url_for('static', filename='back.jpg') }})"{% endblock %}
+
+{% block content %}
+    <div class="managePost">
+        目前共 <small class="text-muted">{{ categories|length }}</small> 種文章分類
+        <span class="float-right"><a class="btn btn-primary btn-sm" href="{{ url_for('admin.new_category') }}">新增分類</a></span>
+    </div>
+
+    {% if categories %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>編號</th>
+                    <th>分類名稱</th>
+                    <th>文章數量</th>
+                    <th>採取行動</th>
+                </tr>
+            </thead>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ url_for('blog.show_category', category_id=category.id) }}">{{ category.name }}</a> </td>
+                    <td>{{ category.posts|length }}</td>
+                    <td>
+                        {% if category.id != 1 %}
+                            <a class="btn btn-info btn-sm"
+                            href="{{ url_for('admin.edit_category', category_id=category.id) }}">編輯
+                            </a>
+
+                            <form class="inline" method="post"
+                                action="{{ url_for('admin.delete_category', category_id=category.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?');">刪除
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p class="text-muted">注意: 刪除分類後, 裡面的文章不會跟著被刪除, 會移動至綜合｡</p>
+    {% else %}
+        <div class="tip"><h5>沒有任何分類｡</h5></div>
+    {% endif %}
+{% endblock %}
