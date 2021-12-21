@@ -33,7 +33,7 @@ class BaseConfig(object):
 
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-dev.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', f"mysql+pymysql://root:{os.getenv('PASSWORD')}@localhost:3306/main")
 
 
 class TestingConfig(BaseConfig):
