@@ -49,7 +49,7 @@ docker-compose up -d
 進入 flask 容器的 shell 
 
 ```
-docker container exec -it SideProject02-PersonalBlog_flask_1 sh
+docker container exec -it sideproject02-personalblog_flask_1 sh
 ```
 建立管理員帳號密碼以及建立虛擬數據
 ```
@@ -58,3 +58,10 @@ flask forge
 flask admin
 ```
 打開瀏覽器，輸入 http://127.0.0.1:8001
+
+# 參考資源
+<ul>
+  <li>Flask 入門教程, 李輝</li>
+  <li>Flask Web 開發實戰, 李輝</li>
+  <li>Docker容器技術入門到精通, Peng Xiao</li>
+</ul>
